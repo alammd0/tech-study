@@ -33,13 +33,14 @@ const signup = async (req, res) => {
 
     // genrate the token
     const payload = {
+      userId: newUser._id,
       firstName,
       email,
-      phoneNumber,
+      accountType: accountType,
     };
 
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
-        expiresIn: "1h",
+      expiresIn: "1h",
     });
 
     console.log("Token : ", token);
@@ -99,13 +100,14 @@ const signin = async (req, res) => {
 
     // genrate the token
     const payload = {
+      userId: userExists._id,
       firstName: userExists.firstName,
       email: userExists.email,
-      phoneNumber: userExists.phoneNumber,
+      accountType: userExists.accountType,
     };
 
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
-        expiresIn: "1h",
+      expiresIn: "1h",
     });
 
     console.log("Token : ", token);
@@ -126,18 +128,17 @@ const signin = async (req, res) => {
     // create user
 
     return res.status(200).json({
-        success: true,
-        message: "User logged in successfully",
-        data: {
-            firstName: userExists.firstName,
-            lastName: userExists.lastName,
-            email: userExists.email,
-            phoneNumber: userExists.phoneNumber,
-            accountType: userExists.accountType,
-        },
-        token,
-    })
-    
+      success: true,
+      message: "User logged in successfully",
+      data: {
+        firstName: userExists.firstName,
+        lastName: userExists.lastName,
+        email: userExists.email,
+        phoneNumber: userExists.phoneNumber,
+        accountType: userExists.accountType,
+      },
+      token,
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -147,7 +148,6 @@ const signin = async (req, res) => {
     });
   }
 };
-
 
 module.exports = {
   signup,
