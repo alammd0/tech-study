@@ -1,31 +1,56 @@
 const express = require("express");
-const authRouter = require("./routes/auth");
-const categoriesRouter = require("./routes/category");
-const courseRouter = require("./routes/course");
-const dotenv = require("dotenv");
-dotenv.config();
-
-const connectDB = require("./config/db");
-const cors = require("cors");
-
 const app = express();
+
+const userRoutes = require("./routes/auth");
+const categoryRoutes = require("./routes/category");
+const courseRoutes = require("./routes/course");
+const sectionRoutes = require("./routes/section");
+
+const database = require("./config/db");
+const cors = require("cors");
+const { cloudinaryConnect } = require("./config/cloudinary");
+const fileUpload = require("express-fileupload");
+const dotenv = require("dotenv");
+
+dotenv.config();
 const PORT = process.env.PORT || 4000;
 
-// middlewares
-app.use(cors());
+//database connect
+database();
+
+//middlewares
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
+app.use(
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: "/tmp",
+  })
+);
 
-connectDB();
-app.use('/api/auth', authRouter);
-app.use('/api/categories', categoriesRouter);
-app.use('/api/courses', courseRouter);
+//cloudinary connection
+cloudinaryConnect;
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+//routes
+app.use("/api/auth", userRoutes);
+app.use("/api/categries", categoryRoutes);
+app.use("/api/course", courseRoutes);
+app.use("/api/section", sectionRoutes);
+
+//def route
+app.get("/", (req, res) => {
+  return res.json({
+    success: true,
+    message: "Your server is up and running....",
+  });
 });
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
+app.listen(PORT, () => {
+  console.log(`App is running at ${PORT}`);
 });

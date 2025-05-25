@@ -1,20 +1,24 @@
-const cloudinary = require("cloudinary").v2;
+const cloudinary = require("../config/cloudinary");
 
-exports.uploadImage = async (file, folder, height, quality) => {
-    
+exports.imageUploadCloudinary = async (file, folder) => {
+  const uploadFile = file.thumbnail;
+  console.log("file: yaha ", uploadFile);
+
+  if (!uploadFile || !uploadFile.tempFilePath) {
+    console.log("Kuch Hai : ");
+  }
+
+  console.log("next hai");
+
   try {
-    const result = await cloudinary.uploader.upload(file, {
-      folder: folder,
-      height: height,
-      quality: quality,
-    });
-
-    return result;
-
+    const option = { folder, resource_type: "auto" };
+    const response = await cloudinary.uploader.upload(
+      uploadFile.tempFilePath,
+      option
+    );
+    return response;
   } catch (err) {
-
-    console.err("Error Uploading Image to Cloudinary:", err);
-    throw new Error("Image upload failed");
-
+    console.log("Cloudinary Upload Error:", err);
+    throw err;
   }
 };

@@ -31,20 +31,6 @@ const signup = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // genrate the token
-    const payload = {
-      userId: newUser._id,
-      firstName,
-      email,
-      accountType: accountType,
-    };
-
-    const token = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
-
-    console.log("Token : ", token);
-
     // create user
     const newUser = await User.create({
       firstName,
@@ -54,6 +40,20 @@ const signup = async (req, res) => {
       password: hashedPassword,
       accountType,
     });
+
+    // genrate the token
+    const payload = {
+      userId: newUser._id,
+      firstName,
+      email,
+      accountType: accountType,
+    };
+
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+
+    console.log("Token : ", token);
 
     return res.status(200).json({
       success: true,
@@ -107,7 +107,7 @@ const signin = async (req, res) => {
     };
 
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: "1h",
+      expiresIn: "7d",
     });
 
     console.log("Token : ", token);

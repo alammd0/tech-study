@@ -23,7 +23,7 @@ const isAuthenticated = async (req, res, next) => {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       // find the user by id
-      console.log("Decoded Token : ", decoded);
+      // console.log("Decoded Token : ", decoded);
       req.User = decoded;
     } catch (err) {
       return res.status(401).json({
@@ -48,9 +48,9 @@ const isAdmin = async (req, res, next) => {
     try{
 
 
-        console.log("User : ", req.User);
+        // console.log("User : ", req.User);
         const user = req.User.accountType;
-        console.log("User Account Type : ", user);
+        // console.log("User Account Type : ", user);
 
         if(user !== "Admin"){
             return res.status(403).json({
