@@ -11,7 +11,7 @@ const router = express.Router();
 
 // this route is for creating a course by admin not user
 router.post("/create-course", isAuthenticated, isAdmin, createCourse);
-router.put("/:id", isAuthenticated, isAdmin, updateCourse);
+router.put("/update-course/:id", isAuthenticated, isAdmin, updateCourse);
 router.delete("/delete-course/:id", isAuthenticated, isAdmin, deleteCourse);
 
 // get only user

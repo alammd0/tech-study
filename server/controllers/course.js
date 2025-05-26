@@ -29,7 +29,7 @@ const createCourse = async (req, res) => {
 
     // console.log("File: ", req.files);
 
-    const thumbnail = req.files;
+    const thumbnail = req.files.thumbnail;
     // console.log("Thumbnail: ", thumbnail);
     if (!thumbnail) {
       return res

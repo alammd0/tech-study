@@ -1,10 +1,16 @@
 const mongoose = require("mongoose");
 
 const subSectionsSchema = new mongoose.Schema({
-    subSectionName: {
+    title: {
         type: String,
         required: true,
         trim: true,
+    },
+
+    description : {
+        type : String,
+        required : true,
+        trim : true
     },
     
     videoUrl: {
@@ -24,4 +30,4 @@ const subSectionsSchema = new mongoose.Schema({
 })
 
 const SubSection = mongoose.model("SubSection", subSectionsSchema);
-export default SubSection;
+module.exports = SubSection ;

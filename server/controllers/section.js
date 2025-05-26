@@ -6,6 +6,8 @@ const createSection = async (req, res) => {
   try {
     const { sectionName, courseId } = req.body;
 
+    console.log();
+
     if (!sectionName || !courseId) {
       return res.status(404).json({
         success: false,
@@ -71,7 +73,9 @@ const updateSection = async (req, res) => {
 // Section Delete
 const deleteSection = async (req, res) => {
   try {
-    const { sectionId } = req.params;
+    console.log(req.params.id);
+    const sectionId = req.params.id;
+    console.log(sectionId);
 
     const deleteSection = await Section.findByIdAndDelete(sectionId);
 

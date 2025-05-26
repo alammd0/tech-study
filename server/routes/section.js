@@ -10,7 +10,7 @@ const router = express.Router();
 
 // create path
 router.post("/create-section", isAuthenticated, isAdmin, createSection);
-router.put("/update-section/:id", isAuthenticated, isAdmin, updateSection);
+router.put("/update-section", isAuthenticated, isAdmin, updateSection);
 router.delete("/delete-section/:id", isAuthenticated, isAdmin, deleteSection);
 
 module.exports = router;

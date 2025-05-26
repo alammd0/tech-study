@@ -1,24 +1,38 @@
 const cloudinary = require("../config/cloudinary");
 
 exports.imageUploadCloudinary = async (file, folder) => {
-  const uploadFile = file.thumbnail;
-  console.log("file: yaha ", uploadFile);
+  const uploadFile = file;
+  console.log("Received file:", uploadFile);
 
   if (!uploadFile || !uploadFile.tempFilePath) {
-    console.log("Kuch Hai : ");
+    throw new Error("No file uploaded or tempFilePath missing.");
   }
 
-  console.log("next hai");
+  // Determine file type
+  const mimeType = uploadFile.mimetype;
+  let resourceType = "auto";
+
+  if (mimeType.startsWith("image/")) {
+    resourceType = "image";
+  } else if (mimeType.startsWith("video/")) {
+    resourceType = "video";
+  }
 
   try {
-    const option = { folder, resource_type: "auto" };
+    const options = {
+      folder,
+      resource_type: resourceType,
+    };
+
     const response = await cloudinary.uploader.upload(
       uploadFile.tempFilePath,
-      option
+      options
     );
+
+    console.log("Upload successful:", response.secure_url);
     return response;
   } catch (err) {
-    console.log("Cloudinary Upload Error:", err);
+    console.error("Cloudinary Upload Error:", err);
     throw err;
   }
 };

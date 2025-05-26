@@ -9,17 +9,17 @@ export const authEndPoints = {
 // Course ENDS Points
 export const courseEndPoints = {
   CREATE_COURSE_API: `${BACKEND_URL}/course/create-course`,
-  UPDATE_COURSE_API: `${BACKEND_URL}/course/update-course/${id}`,
-  DELETE_COURSE_API: `${BACKEND_URL}/course/delete-course/${id}`,
+  UPDATE_COURSE_API: `${BACKEND_URL}/course/update-course`,
+  DELETE_COURSE_API: `${BACKEND_URL}/course/delete-course`,
   GET_ALL_COURSE_API: `${BACKEND_URL}/course/get-all-course`,
-  GET_SINGLE_COURSE_API: `${BACKEND_URL}/course/get-single-course/${id}`,
+  GET_SINGLE_COURSE_API: `${BACKEND_URL}/course/get-single-course`,
 };
 
 // Section ENDS Points
 export const sectionEndPoints = {
   CREATE_SECTION_API: `${BACKEND_URL}/section/create-section`,
   UPDATE_SECTION_API: `${BACKEND_URL}/sectiion/update-section`,
-  DELETE_SECTION_API: `${BACKEND_URL}/section/delete-section/${id}`,
+  DELETE_SECTION_API: `${BACKEND_URL}/section/delete-section`,
 };
 
 // Sub-Sections ENDS Points
@@ -32,6 +32,6 @@ export const subSectionEndPoints = {
 // Category END Points
 export const CategoryEndPoints = {
   CREATE_CATEGORY_API: `${BACKEND_URL}/categries/create-category`,
-  DELETE_CATEGORY_BYID_API: `${BACKEND_URL}/categries/delete-category/${id}`,
-  GET_CATEGORY_API: `${BACKEND_URL}/categries/get-course`,
+  DELETE_CATEGORY_BYID_API: `${BACKEND_URL}/categries/delete-category`,
+  GET_CATEGORY_API: `${BACKEND_URL}/categries/get-categories`,
 };

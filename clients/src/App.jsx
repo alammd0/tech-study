@@ -1,11 +1,13 @@
-import { useState } from 'react'
+import Navbar from "./components/common/Navbar";
+
 function App() {
-  
   return (
-   <div>
-    <h2 className=' flex text-white bg-red-400'>Hello World</h2>
-   </div>
-  )
+    <div>
+      <Navbar />
+
+      {/* <div>Hello World</div> */}
+    </div>
+  );
 }
 
-export default App
+export default App;

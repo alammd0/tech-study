@@ -5,6 +5,7 @@ const userRoutes = require("./routes/auth");
 const categoryRoutes = require("./routes/category");
 const courseRoutes = require("./routes/course");
 const sectionRoutes = require("./routes/section");
+const subSectionRoutes = require("./routes/subSection");
 
 const database = require("./config/db");
 const cors = require("cors");
@@ -22,7 +23,7 @@ database();
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );
@@ -42,6 +43,7 @@ app.use("/api/auth", userRoutes);
 app.use("/api/categries", categoryRoutes);
 app.use("/api/course", courseRoutes);
 app.use("/api/section", sectionRoutes);
+app.use("/api/sub-section", subSectionRoutes);
 
 //def route
 app.get("/", (req, res) => {
