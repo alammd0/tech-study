@@ -1,86 +1,80 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import { IoIosSearch } from "react-icons/io";
 import { CiShoppingCart } from "react-icons/ci";
-import logo from "../../assets/Logo/Logo-Full-Light.png"
-import { useDispatch } from "react-redux";
-import { getAllCategories } from "../../connectors/opreations/categoryAPI";
+import logo from "../../assets/Logo/Logo-Full-Light.png";
 import { useSelector } from "react-redux";
+import { IoMdArrowDropdown } from "react-icons/io";
+import Catalog from "./Catalog";
+
+
+export const selectComponents = [
+  {
+    id : "1", 
+    title : "Web Devlopment"
+  },
+
+  {
+    id : "2",
+    title : "Machine Learning"
+  },
+
+  {
+    id : "3", 
+    title : "Data Science"
+  }
+]
 
 const Navbar = () => {
-
   const token = useSelector((state) => state.auth.token);
-  // console.log("Token from Navbar:", token);
-
-  const [catalog, setCatalog] = useState([]) ; 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-
-  // fetch Catalog data or any other data you need here
-  useEffect( () => {
-    const fetchCatalog = async () => {
-      try {
-        setLoading(true);
-        const response = await dispatch(getAllCategories());
-        console.log("Catalog response:", response.data);
-        if (response) {
-          setCatalog(response.data);
-        } else {
-          console.error("Failed to fetch catalog data");
-        }
-        setLoading(false);
-
-      }
-      catch(err){
-        console.error("Error fetching catalog data:", err);
-        setLoading(false);
-      }
-    }
-
-    return fetchCatalog;
-  }, [])
 
   return (
-    <nav className="navbar bg-richblack-900">
-      {/* Logo */}
-      <div className="navbar-logo">
-        <Link to="/">
-          <img src={logo} alt="Website Logo" className="w-auto h-[40px]"/>
-        </Link>
-      </div>
-
-      {/* Navigation Links */}
-      <ul className="navbar-links flex gap-4">
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        {/* HW:ADD CHANGE HERE */}
-        <li>
-          <Link to="/catalog">Catalog</Link>
-        </li>
-        <li>
-          <Link to="/about">About Us</Link>
-        </li>
-        <li>
-          <Link to="/contact">Contact</Link>
-        </li>
-      </ul>
-
-      <div className="navbar-right">
-        <div>
-          <IoIosSearch />
-        </div>
-        <div>
-          <Link to="/cart">
-            <CiShoppingCart className="text-2xl" />
+    <nav className="navbar bg-richblack-900 h-[56px] flex items-center text-richblack-100 border-b-1 border-richblack-300">
+      <div className="w-11/12 flex mx-auto justify-between text-center items-center">
+        {/* Logo */}
+        <div className="navbar-logo">
+          <Link to="/">
+            <img src={logo} alt="Website Logo" className="w-auto h-[30px]" />
           </Link>
         </div>
-        <div>
-          {/* HW:ADD SOMETHING */}
-          <Link to="/login" className="text-blue-500">
-            Login
-          </Link>
+
+        {/* Navigation Links */}
+        <ul className="flex gap-6">
+          <li className="text-[18px] font-normal capitalize">
+            <Link to="/">Home</Link>
+          </li>
+          {/* HW:ADD CHANGE HERE */}
+          <li className="text-[18px] font-normal capitalize flex items-center justify-center">
+            {/* <Link to="/catalog">Catalog </Link>
+            <span>
+              <IoMdArrowDropdown />
+            </span> */}
+
+            <Catalog />
+          </li>
+          <li className="text-[18px] font-normal capitalize">
+            <Link to="/about">About Us</Link>
+          </li>
+          <li className="text-[18px] font-normal capitalize">
+            <Link to="/contact">Contact us</Link>
+          </li>
+        </ul>
+
+        <div className="flex items-center gap-6">
+          <div className="text-2xl cursor-pointer">
+            <IoIosSearch />
+          </div>
+          <div>
+            <Link to="/cart">
+              <CiShoppingCart className="text-2xl" />
+            </Link>
+          </div>
+          <div>
+            {/* HW:ADD SOMETHING */}
+            <button className=" border border-richblack-700 px-3 py-1 rounded-md hover:scale-105 duration-200 ">
+              <Link to="/login">Login</Link>
+            </button>
+          </div>
         </div>
       </div>
     </nav>
